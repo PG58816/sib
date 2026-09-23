@@ -3,19 +3,25 @@ from abc import abstractmethod, ABCMeta
 from si.data.dataset import Dataset
 
 
-class Estimator(metaclass=ABCMeta):
+class Estimator(metaclass = ABCMeta):
+
     """
     Abstract base class for estimators.
     An estimator is an object that can be fitted to a Dataset object.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, 
+                 **kwargs):
+
         """
         Initialize the estimator.
         """
+
         self._is_fitted = False
 
-    def fit(self, dataset: Dataset) -> 'Estimator':
+    def fit(self, 
+            dataset: Dataset) -> 'Estimator':
+
         """
         Fit the estimator to the data.
 
@@ -29,12 +35,15 @@ class Estimator(metaclass=ABCMeta):
         self: Estimator
             The fitted estimator.
         """
+
         self._fit(dataset)
         self._is_fitted = True
         return self
 
     @abstractmethod
-    def _fit(self, dataset: Dataset) -> 'Estimator':
+    def _fit(self, 
+             dataset: Dataset) -> 'Estimator':
+        
         """
         Fit the estimator to the data.
         Abstract method that needs to be implemented by all subclasses.
@@ -51,6 +60,7 @@ class Estimator(metaclass=ABCMeta):
         """
 
     def is_fitted(self) -> bool:
+
         """
         Whether the estimator is fitted.
 
@@ -59,4 +69,5 @@ class Estimator(metaclass=ABCMeta):
         is_fitted: bool
             Whether the estimator is fitted.
         """
+        
         return hasattr(self, '_is_fitted') and self._is_fitted

@@ -5,12 +5,15 @@ from si.data.dataset import Dataset
 
 
 class Transformer(Estimator):
+
     """
     Abstract base class for transformers.
     A transformer is an object that can transform a Dataset object.
     """
 
-    def transform(self, dataset: Dataset) -> Dataset:
+    def transform(self, 
+                  dataset: Dataset) -> Dataset:
+
         """
         Transform the dataset.
         The transformer needs to be fitted before calling this method.
@@ -25,12 +28,15 @@ class Transformer(Estimator):
         dataset: Dataset
             The transformed dataset.
         """
-        if not self.is_fitted:
+
+        if not self.is_fitted():
             raise ValueError('Transformer needs to be fitted before calling transform()')
         return self._transform(dataset)
 
     @abstractmethod
-    def _transform(self, dataset: Dataset) -> Dataset:
+    def _transform(self, 
+                   dataset: Dataset) -> Dataset:
+
         """
         Transform the dataset.
         Abstract method that needs to be implemented by all subclasses.
@@ -46,7 +52,9 @@ class Transformer(Estimator):
             The transformed dataset.
         """
 
-    def fit_transform(self, dataset: Dataset) -> Dataset:
+    def fit_transform(self, 
+                      dataset: Dataset) -> Dataset:
+        
         """
         Fit the transformer to the dataset and transform it.
         Equivalent to calling fit(dataset) and then transform(dataset).
@@ -61,4 +69,5 @@ class Transformer(Estimator):
         dataset: Dataset
             The transformed dataset.
         """
+
         return self.fit(dataset).transform(dataset)
